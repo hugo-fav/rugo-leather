@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a small **single‑page Next.js storefront** for KAIRA footwear. The experience has been tailored as an SPA with sections (hero, products, story, gallery) and every call‑to‑action points to the client's WhatsApp number.
+
+The codebase is minimal but built with maintainability in mind: centralized config, a floating WhatsApp button, a responsive navbar, and easy-to-update components.
 
 ## Getting Started
 
