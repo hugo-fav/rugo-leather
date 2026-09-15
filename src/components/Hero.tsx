@@ -2,84 +2,71 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { WHATSAPP_LINK } from "../config";
+import { WHATSAPP_LINK } from "@/config";
 
-interface HeroProps {
-  title?: string;
-  subtitle?: string;
-  buttonText?: string;
-  buttonLink?: string;
-  whatsappText?: string;
-  whatsappLink?: string;
-  imageSrc?: string;
-  imageAlt?: string;
-}
-
-export default function Hero({
-  title = "ROOTED IN HERITAGE.",
-  subtitle = "Modern African footwear crafted for presence.",
-  buttonText = "Shop Collection",
-  buttonLink = "/shop",
-  whatsappText = "Chat on WhatsApp",
-  whatsappLink = WHATSAPP_LINK,
-  imageSrc = "/bag-1.jpg",
-  imageAlt = "Premium leather footwear",
-}: HeroProps) {
+export default function Hero() {
   return (
     <section
       id="home"
-      aria-label="Hero section"
-      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#f5f1eb]"
+      className="relative h-screen w-full bg-[#111] overflow-hidden"
     >
-      {/* Background Image */}
+      {/* Background Image - Slight zoom on load */}
       <motion.div
         initial={{ scale: 1.05 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 8, ease: "easeOut" }}
+        transition={{ duration: 2, ease: "easeOut" }}
         className="absolute inset-0"
       >
         <Image
-          src={imageSrc}
-          alt={imageAlt}
+          src="/bag-1.jpg"
+          alt="Premium leather footwear"
           fill
           priority
-          className="object-cover opacity-30"
+          className="object-cover opacity-70"
         />
+        {/* Subtle gradient so text is always readable at the bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
       </motion.div>
 
-      {/* Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2 }}
-        className="relative z-10 text-center px-6 max-w-3xl"
-      >
-        <h1 className="text-4xl md:text-6xl font-bold tracking-wide text-[#1c1c1c] mb-6">
-          {title}
-        </h1>
+      {/* Content - Anchored Bottom Left for Editorial Feel */}
+      <div className="absolute bottom-0 left-0 w-full p-6 md:p-16 z-10 flex flex-col md:flex-row justify-between items-end gap-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="max-w-2xl"
+        >
+          <h1 className="text-5xl md:text-8xl font-serif text-white tracking-tight leading-none mb-4">
+            Rooted in <br />{" "}
+            <span className="italic text-[#d4af37]">Heritage.</span>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-300 font-sans max-w-md">
+            Modern African footwear crafted for presence.
+          </p>
+        </motion.div>
 
-        <p className="text-lg md:text-xl text-[#444] mb-10">{subtitle}</p>
-
-        <div className="flex flex-wrap justify-center gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="flex gap-4 w-full md:w-auto"
+        >
           <a
-            href={buttonLink}
-            className="inline-block px-10 py-4 bg-[#6b4f3b] text-white rounded-full hover:bg-[#5a4030] transition focus:outline-none focus:ring-4 focus:ring-[#6b4f3b]/50"
+            href="#products"
+            className="flex-1 md:flex-none text-center px-8 py-4 bg-white text-black font-sans text-sm tracking-widest uppercase hover:bg-gray-200 transition"
           >
-            {buttonText}
+            Explore
           </a>
-
-          {whatsappLink && (
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-10 py-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition focus:outline-none focus:ring-4 focus:ring-green-500/50"
-            >
-              {whatsappText}
-            </a>
-          )}
-        </div>
-      </motion.div>
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 md:flex-none text-center px-8 py-4 border border-white text-white font-sans text-sm tracking-widest uppercase hover:bg-white hover:text-black transition"
+          >
+            Inquire
+          </a>
+        </motion.div>
+      </div>
     </section>
   );
 }

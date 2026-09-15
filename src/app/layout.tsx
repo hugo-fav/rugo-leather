@@ -43,7 +43,7 @@ export default function RootLayout({
         className={`${playfair.variable} font-serif min-h-screen flex flex-col justify-between bg-background text-foreground`}
       >
         <Navbar />
-        <main className="pt-16">
+        <main className="w-full">
           {children}
           <Footer />
         </main>

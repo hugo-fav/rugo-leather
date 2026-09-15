@@ -1,143 +1,88 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { WHATSAPP_LINK } from "@/config";
 
-type Product = {
-  src: string;
-  alt: string;
-  title: string;
-  description: string;
-};
-
-const products: Product[] = [
+const showcaseItems = [
   {
-    src: "/leathersandals.jfif",
+    src: "/leather.jpg",
     alt: "Leather Sandals",
-    title: "Leather Sandal",
-    description:
-      "Handcrafted leather sandal designed for comfort and timeless style.",
+    title: "The Leather Sandal",
+    description: "Handcrafted leather designed for comfort and timeless style.",
   },
   {
     src: "/halfshoe.jfif",
     alt: "Men Half shoe",
-    title: "Men Half Shoe",
-    description:
-      "Versatile half shoe blending classic design with modern comfort.",
+    title: "The Half Shoe",
+    description: "Versatile blending classic design with modern comfort.",
   },
   {
     src: "/palms.jfif",
     alt: "Palms",
-    title: "Palms",
-    description:
-      "Lightweight and breathable sandal inspired by tropical vibes, perfect for warm weather.",
+    title: "The Palms",
+    description: "Lightweight and breathable sandal inspired by tropical vibes, perfect for warm weather.",
   },
 ];
 
 export default function LuxuryShowcase() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-
   return (
-    <section ref={ref} className="relative h-[350vh] bg-[#f5f1eb]">
-      {/* Sticky viewport */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Background */}
-        <motion.div style={{ y: backgroundY }} className="absolute inset-0">
-          <Image
-            src="/beautiful-men-sandal.jpg"
-            alt="background"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
-        </motion.div>
-
-        {/* Products */}
-        <div className="relative h-full flex items-center justify-center">
-          {products.map((product, i) => {
-            const start = i * 0.33;
-            const end = start + 0.33;
-
-            const opacity = useTransform(
-              scrollYProgress,
-              [start, (start + end) / 2, end],
-              [0, 1, 0],
-            );
-
-            const scale = useTransform(
-              scrollYProgress,
-              [start, (start + end) / 2, end],
-              [0.9, 1, 0.9],
-            );
-
-            const xImage = useTransform(
-              scrollYProgress,
-              [start, end],
-              [i % 2 === 0 ? -120 : 120, 0],
-            );
-
-            const xText = useTransform(
-              scrollYProgress,
-              [start, end],
-              [i % 2 === 0 ? 120 : -120, 0],
-            );
-
-            return (
-              <motion.div
-                key={product.src}
-                style={{ opacity, scale }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <div className="max-w-7xl w-full grid md:grid-cols-2 gap-20 items-center px-12">
-                  {/* Image */}
-                  <motion.div
-                    style={{ x: xImage }}
-                    className="flex justify-center"
-                  >
-                    <Image
-                      src={product.src}
-                      alt={product.alt}
-                      width={420}
-                      height={420}
-                      className="rounded-2xl shadow-2xl ring-4 ring-white/20"
-                    />
-                  </motion.div>
-
-                  {/* Text */}
-                  <motion.div
-                    style={{ x: xText }}
-                    className="text-white space-y-8"
-                  >
-                    <h2 className="text-5xl md:text-6xl font-light tracking-wide">
-                      {product.title}
-                    </h2>
-
-                    <p className="text-xl opacity-90 leading-relaxed font-light">
-                      {product.description}
-                    </p>
-
-                    <button
-                      onClick={() => window.open(WHATSAPP_LINK, "_blank")}
-                      className="backdrop-blur-sm bg-white/10 border border-white/30 px-8 py-4 rounded-full hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-lg font-medium"
-                    >
-                      Contact Rugo
-                    </button>
-                  </motion.div>
-                </div>
-              </motion.div>
-            );
-          })}
+    <section className="bg-[#f5f1eb] pt-32 pb-48 px-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24 relative">
+        
+        {/* Sticky Left Side - Context */}
+        <div className="md:w-1/3 md:sticky md:top-40 h-fit z-10">
+          <p className="text-sm font-sans tracking-[0.3em] uppercase text-[#6b4f3b] mb-4">
+            Signature Forms
+          </p>
+          <h2 className="text-5xl md:text-6xl font-serif text-[#1c1c1c] mb-6 leading-tight">
+            The RUGO <br /> Silhouettes.
+          </h2>
+          <p className="text-lg text-gray-600 font-sans mb-10 font-light leading-relaxed">
+            Discover the definitive shapes that make our collection. Built for durability, styled for elegance.
+          </p>
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block border-b border-[#1c1c1c] pb-1 text-[#1c1c1c] font-sans uppercase tracking-widest text-sm hover:text-gray-500 hover:border-gray-500 transition-colors"
+          >
+            Inquire About Fit
+          </a>
         </div>
+
+        {/* Scrolling Right Side - Massive Images */}
+        <div className="md:w-2/3 flex flex-col gap-32 md:mt-0 mt-16">
+          {showcaseItems.map((item, index) => (
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col gap-6"
+            >
+              {/* Massive Borderless Image */}
+              <div className="relative h-[600px] w-full bg-[#e8e3dc]">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              
+              {/* Minimal Text Below Image */}
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                <h3 className="text-3xl font-serif text-[#1c1c1c]">{item.title}</h3>
+                <p className="text-gray-600 font-sans max-w-xs font-light text-sm md:text-right">
+                  {item.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
       </div>
     </section>
   );

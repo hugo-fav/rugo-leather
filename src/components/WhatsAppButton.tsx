@@ -10,9 +10,12 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-transform transform hover:scale-105"
+      className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-14 h-14 bg-black/80 backdrop-blur-md text-white rounded-full shadow-2xl border border-white/10 hover:bg-black transition-all duration-300 hover:scale-105 group"
     >
-      <FaWhatsapp size={24} />
+      <FaWhatsapp
+        size={26}
+        className="group-hover:text-green-400 transition-colors duration-300"
+      />
     </a>
   );
 }
